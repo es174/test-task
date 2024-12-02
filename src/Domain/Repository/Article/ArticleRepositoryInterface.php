@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Domain\Repository\Article;
 
 use App\Domain\Entity\Article\Article;
-use App\Domain\Entity\User\User;
-use App\Domain\RepositoryFilter\User\UserFilter;
 use DomainException;
 
 interface ArticleRepositoryInterface
