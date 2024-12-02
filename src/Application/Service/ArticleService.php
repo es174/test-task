@@ -64,6 +64,7 @@ class ArticleService
             'title' => $article->getTitle(),
             'description' => $article->getDescription(),
             'count_views' => $article->getCountViewsString(),
+            'created_at' => $article->getCreatedAt()->format("d.m.Y H:i"),
             'is_active' => $article->isActive() ? "Да" : "Нет",
         ];
     }
