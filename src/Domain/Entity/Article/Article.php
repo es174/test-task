@@ -91,8 +91,9 @@ class Article
         return $this->countViews;
     }
 
-    private const COUNT_ARRAY = [
-        0 => "",
+    //словарь для количества и его сокращения
+    private const COUNT_TO_WORD_ARRAY = [
+        1 => "",
         1000 => "K",
         1000000 => "М",
 //        1000000000 => "G"
@@ -101,20 +102,20 @@ class Article
     public static function generateRandomCountViews(): int
     {
         //просто красивая генерация в отличие от  rand(1, 1000000) где в основном будет "K"
-        return rand(1, 99) * (array_rand(Article::COUNT_ARRAY) ?: 1);
+        return rand(1, 99) * (array_rand(Article::COUNT_TO_WORD_ARRAY));
     }
 
     public function getCountViewsString(): string
     {
         $countViews = $this->getCountViews();
-        $lastKey = array_key_first(self::COUNT_ARRAY);
-        foreach (array_keys(self::COUNT_ARRAY) as $key) {
+        $lastKey = array_key_first(self::COUNT_TO_WORD_ARRAY);
+        foreach (array_keys(self::COUNT_TO_WORD_ARRAY) as $key) {
             if ($countViews < $key)
                 break;
             $lastKey = $key;
         }
 
-        return intdiv($countViews, $lastKey ?: 1) . self::COUNT_ARRAY[$lastKey];
+        return intdiv($countViews, $lastKey) . self::COUNT_TO_WORD_ARRAY[$lastKey];
     }
 
     public function getTitle(): string
