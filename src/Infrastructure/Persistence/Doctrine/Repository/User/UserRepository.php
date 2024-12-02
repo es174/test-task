@@ -58,5 +58,21 @@ class UserRepository extends BaseDoctrineRepository implements UserRepositoryInt
 
         return $user;
     }
+    /**
+     * @inheritDoc
+     */
+    public function save(User $user): void
+    {
+        $this->em->persist($user);
+        $this->em->flush();
+    }
 
+    /**
+     * @inheritDoc
+     */
+    public function delete(User $user): void
+    {
+        $this->em->remove($user);
+        $this->em->flush();
+    }
 }
