@@ -90,4 +90,9 @@ class Article
     {
         return $this->countViews;
     }
+
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
 }
