@@ -19,6 +19,9 @@ docker-pull:
 docker-build:
 	docker-compose build --build-arg UID=`id -u`
 
+db-schema-update:
+	docker-compose run --rm php-cli php bin/console doctrine:schema:update --force
+
 db-migrate:
 	docker-compose run --rm php-cli php bin/console doctrine:migrations:migrate --no-interaction
 
