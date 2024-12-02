@@ -1,0 +1,66 @@
+{% extends 'app/base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        .center {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .deleteButton {
+            color: #eee;
+            padding: 7px 13px;
+            border: none;
+            border-radius: 1px;
+            background: #262626;
+        }
+
+        .deleteButton:hover {
+            background: #c0392b;
+        }
+
+        .deleteButton:active {
+            background: #e74c3c;
+        }
+
+    </style>
+{% endblock %}
+
+{% block topnav %}
+    <a href="{{ path('app_article_create') }}">Создать новую статью</a>
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="center">
+        <h1 align="center">Список статей</h1>
+    </div>
+    <div class="center">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Просмотры</th>
+                <th>Удаление</th>
+            </tr>
+
+            {% for article in articles %}
+                <tr>
+                    <td>{{ article.id }}</td>
+                    <td>
+                        <a href="{{ path('app_article_show', {id: article.id}) }}">{{ article.title }}</a>
+                    </td>
+                    <td>{{ article.count_views }}</td>
+                    <td>
+                        <form action="{{ path('app_article_delete', {id: article.id}) }}" method="post">
+                            <button type="submit" name="delete_button" class="deleteButton">X</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+    </div>
+{% endblock %}
