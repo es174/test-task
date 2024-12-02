@@ -7,21 +7,17 @@ namespace App\Infrastructure\Persistence\Doctrine\Repository\User;
 use App\Domain\Entity\User\User;
 use App\Domain\Repository\User\UserRepositoryInterface;
 use App\Domain\RepositoryFilter\User\UserFilter;
+use App\Infrastructure\Persistence\Doctrine\Repository\BaseDoctrineRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ObjectRepository;
 use DomainException;
 
-class UserRepository implements UserRepositoryInterface
+class UserRepository extends BaseDoctrineRepository implements UserRepositoryInterface
 {
-    private ObjectRepository $repository;
-
-    private EntityManagerInterface $em;
-
     public function __construct(EntityManagerInterface $em)
     {
-        $this->em = $em;
-        $this->repository = $em->getRepository(User::class);
+        parent::__construct($em, User::class);
     }
 
     private function qbAll(UserFilter $filter): QueryBuilder
@@ -63,21 +59,4 @@ class UserRepository implements UserRepositoryInterface
         return $user;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function save(User $user): void
-    {
-        $this->em->persist($user);
-        $this->em->flush();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(User $user): void
-    {
-        $this->em->remove($user);
-        $this->em->flush();
-    }
 }
