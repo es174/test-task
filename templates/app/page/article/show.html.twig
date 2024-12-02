@@ -1,0 +1,13 @@
+{% extends 'app/base.html.twig' %}
+{% block topnav %}
+    <a href="{{ path('app_article_list') }}">Вернуться назад </a>
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+
+    <h1>Статья {{ title }}</h1>
+    <h2>Количество просмотров: {{ count_views }}</h2>
+    <h2>Активность: {{ is_active }}</h2>
+    <h2>Описание: {{ description }}</h2>
+
+{% endblock %}
