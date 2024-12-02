@@ -91,8 +91,40 @@ class Article
         return $this->countViews;
     }
 
+    private const COUNT_ARRAY = [
+        0 => "",
+        1000 => "K",
+        1000000 => "М",
+//        1000000000 => "G"
+    ];
+
+    public static function generateRandomCountViews(): int
+    {
+        //просто красивая генерация в отличие от  rand(1, 1000000) где в основном будет "K"
+        return rand(1, 99) * (array_rand(Article::COUNT_ARRAY) ?: 1);
+    }
+
+    public function getCountViewsString(): string
+    {
+        $countViews = $this->getCountViews();
+        $lastKey = array_key_first(self::COUNT_ARRAY);
+        foreach (array_keys(self::COUNT_ARRAY) as $key) {
+            if ($countViews < $key)
+                break;
+            $lastKey = $key;
+        }
+
+        return intdiv($countViews, $lastKey ?: 1) . self::COUNT_ARRAY[$lastKey];
+    }
+
     public function getTitle(): string
     {
         return $this->title;
+    }
+
+    public function increaseCountViews(int $count = 1): self
+    {
+        $this->countViews += $count;
+        return $this;
     }
 }
