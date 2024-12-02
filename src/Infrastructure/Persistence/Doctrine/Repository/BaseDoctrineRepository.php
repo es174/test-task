@@ -28,22 +28,4 @@ abstract class BaseDoctrineRepository
         $this->em = $em;
         $this->repository = $em->getRepository($entityClass);
     }
-
-    /**
-     * @inheritDoc
-     */
-    public function save(object $user): void
-    {
-        $this->em->persist($user);
-        $this->em->flush();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(object $user): void
-    {
-        $this->em->remove($user);
-        $this->em->flush();
-    }
 }
